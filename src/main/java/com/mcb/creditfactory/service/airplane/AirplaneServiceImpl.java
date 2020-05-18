@@ -4,7 +4,6 @@ import com.mcb.creditfactory.dto.AirplaneDto;
 import com.mcb.creditfactory.dto.Collateral;
 import com.mcb.creditfactory.external.ExternalApproveService;
 import com.mcb.creditfactory.model.Airplane;
-import com.mcb.creditfactory.model.Car;
 import com.mcb.creditfactory.repository.AirplaneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,11 +31,6 @@ public class AirplaneServiceImpl implements AirplaneService {
     @Override
     public Optional<Airplane> load(Long id) {
         return Optional.empty();
-    }
-
-    @Override
-    public AirplaneDto fromCollateral(Collateral collateral) {
-        return null;
     }
 
     @Override

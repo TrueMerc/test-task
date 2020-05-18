@@ -14,7 +14,7 @@ public class CarAdapter implements CollateralObject {
 
     @Override
     public BigDecimal getValue() {
-        return car.getValue();
+        return car.getAssessmentDtos().get(0).getValue();
     }
 
     @Override
@@ -24,8 +24,7 @@ public class CarAdapter implements CollateralObject {
 
     @Override
     public LocalDate getDate() {
-        // Для автомобилей дата оценки не используется, поэтому всегда берем текущую
-        return LocalDate.now();
+        return car.getAssessmentDtos().get(0).getDateTime().toLocalDate();
     }
 
     @Override

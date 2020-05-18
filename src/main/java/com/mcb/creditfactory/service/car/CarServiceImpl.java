@@ -1,14 +1,15 @@
 package com.mcb.creditfactory.service.car;
 
 import com.mcb.creditfactory.dto.CarDto;
-import com.mcb.creditfactory.dto.Collateral;
 import com.mcb.creditfactory.external.ExternalApproveService;
 import com.mcb.creditfactory.model.Car;
 import com.mcb.creditfactory.repository.CarRepository;
+import com.mcb.creditfactory.service.assessment.AssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -17,6 +18,9 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private CarRepository carRepository;
+
+    @Autowired
+    private AssessmentService assessmentService;
 
     @Override
     public boolean approve(CarDto dto) {
@@ -34,11 +38,6 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarDto fromCollateral(Collateral collateral) {
-        return (CarDto)collateral;
-    }
-
-    @Override
     public Car fromDto(CarDto dto) {
         return new Car(
                 dto.getId(),
@@ -46,8 +45,9 @@ public class CarServiceImpl implements CarService {
                 dto.getModel(),
                 dto.getPower(),
                 dto.getYear(),
-                dto.getValue()
-        );
+                dto.getAssessmentDtos().stream()
+                        .map(assessmentDto -> assessmentService.fromDto(assessmentDto)).collect(Collectors.toList())
+         );
     }
 
     @Override
@@ -58,7 +58,8 @@ public class CarServiceImpl implements CarService {
                 car.getModel(),
                 car.getPower(),
                 car.getYear(),
-                car.getValue()
+                car.getAssessments().stream()
+                        .map(assessment -> assessmentService.toDto(assessment)).collect(Collectors.toList())
         );
     }
 

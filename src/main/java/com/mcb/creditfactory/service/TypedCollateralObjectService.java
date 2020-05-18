@@ -16,8 +16,6 @@ public interface TypedCollateralObjectService<Type, DtoType extends Collateral> 
 
     Optional<Type> load(Long id);
 
-    DtoType fromCollateral(Collateral collateral);
-
     Type fromDto(DtoType dto);
 
     DtoType toDTO(Type object);

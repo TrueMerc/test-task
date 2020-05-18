@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Data
 @NoArgsConstructor
@@ -22,4 +23,11 @@ public class Airplane {
     @Column(name="year_of_issue")
     private Short year;
     private Short seats;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "AIRPLANES_ASSESSMENT",
+        joinColumns = @JoinColumn(name = "airplane_id"),
+        inverseJoinColumns = @JoinColumn(name = "assessment_id")
+    )
+    private Collection<Assessment> assessments;
 }
