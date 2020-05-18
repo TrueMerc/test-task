@@ -5,21 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonTypeName("car")
-public class CarDto implements Collateral {
+@JsonTypeName("airplane")
+public class AirplaneDto implements Collateral {
     private Long id;
     private String brand;
     private String model;
-    private Double power;
+    private String manufacturer;
+    private Integer fuelCapacity;
     private Short year;
-    private BigDecimal value;
+    private Short seats;
 
-    public CarDto(Long id) {
+    public AirplaneDto(Long id) {
         this.id = id;
     }
 }

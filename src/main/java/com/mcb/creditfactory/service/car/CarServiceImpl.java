@@ -1,6 +1,7 @@
 package com.mcb.creditfactory.service.car;
 
 import com.mcb.creditfactory.dto.CarDto;
+import com.mcb.creditfactory.dto.Collateral;
 import com.mcb.creditfactory.external.ExternalApproveService;
 import com.mcb.creditfactory.model.Car;
 import com.mcb.creditfactory.repository.CarRepository;
@@ -30,6 +31,11 @@ public class CarServiceImpl implements CarService {
     @Override
     public Optional<Car> load(Long id) {
         return carRepository.findById(id);
+    }
+
+    @Override
+    public CarDto fromCollateral(Collateral collateral) {
+        return (CarDto)collateral;
     }
 
     @Override

@@ -15,17 +15,11 @@ public class Airplane {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String brand;
-
     private String model;
-
     private String manufacturer;
-
     private Integer fuelCapacity;
-
     @Column(name="year_of_issue")
     private Short year;
-
     private Short seats;
 }
