@@ -1,4 +1,54 @@
 package com.mcb.creditfactory.services.airplane;
 
-public class AirplaneCollateralService {
+import com.mcb.creditfactory.dto.AirplaneDto;
+import com.mcb.creditfactory.dto.CarDto;
+import com.mcb.creditfactory.dto.Collateral;
+import com.mcb.creditfactory.entities.Airplane;
+import com.mcb.creditfactory.services.TypedCollateralService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class AirplaneCollateralService implements TypedCollateralService {
+    @Autowired
+    AirplaneService airplaneService;
+
+    @Override
+    public Long saveCollateral(Collateral object) {
+        if (!(object instanceof AirplaneDto)) {
+            throw new IllegalArgumentException();
+        }
+
+        AirplaneDto airplane = (AirplaneDto) object;
+        boolean approved = airplaneService.approve(airplane);
+        if (!approved) {
+            return null;
+        }
+
+        return Optional.of(airplane)
+                .map(airplaneService::fromDto)
+                .map(airplaneService::save)
+                .map(airplaneService::getId)
+                .orElse(null);
+    }
+
+    @Override
+    public Collateral getInfo(Collateral object) {
+        if (!(object instanceof AirplaneDto)) {
+            throw new IllegalArgumentException();
+        }
+        return Optional.of((AirplaneDto) object)
+                .map(airplaneService::fromDto)
+                .map(airplaneService::getId)
+                .flatMap(airplaneService::load)
+                .map(airplaneService::toDTO)
+                .orElse(null);
+    }
+
+    @Override
+    public String typeId() {
+        return AirplaneDto.class.toString();
+    }
 }

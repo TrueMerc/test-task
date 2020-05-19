@@ -1,4 +1,4 @@
-package com.mcb.creditfactory.service;
+package com.mcb.creditfactory.services;
 
 import com.mcb.creditfactory.dto.Collateral;
 import org.springframework.beans.factory.annotation.Autowired;

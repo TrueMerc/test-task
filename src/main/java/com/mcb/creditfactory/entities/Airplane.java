@@ -1,11 +1,11 @@
-package com.mcb.creditfactory.model;
+package com.mcb.creditfactory.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,15 +19,18 @@ public class Airplane {
     private String brand;
     private String model;
     private String manufacturer;
+
+    @Column(name = "fuel_capacity")
     private Integer fuelCapacity;
     @Column(name="year_of_issue")
     private Short year;
     private Short seats;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "AIRPLANES_ASSESSMENT",
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "AIRPLANES_ASSESSMENTS",
         joinColumns = @JoinColumn(name = "airplane_id"),
         inverseJoinColumns = @JoinColumn(name = "assessment_id")
     )
-    private Collection<Assessment> assessments;
+    @OrderBy("date_time DESC")
+    private List<Assessment> assessments;
 }

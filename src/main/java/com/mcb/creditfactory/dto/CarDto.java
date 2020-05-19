@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -19,7 +17,7 @@ public class CarDto implements Collateral {
     private String model;
     private Double power;
     private Short year;
-    List<AssessmentDto> assessmentDtos;
+    private List<AssessmentDto> assessmentDtos;
 
     public CarDto(Long id) {
         this.id = id;

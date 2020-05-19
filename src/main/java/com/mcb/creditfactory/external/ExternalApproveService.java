@@ -16,7 +16,6 @@ public class ExternalApproveService {
     private static final int MIN_PLANE_YEAR = 1991;
     private static final BigDecimal MIN_PLANE_VALUE = BigDecimal.valueOf(230000000);
 
-
     public int approve(CollateralObject object) {
         if (object.getDate() == null ||object.getYear() == null || object.getValue() == null || object.getType() == null) {
             return -1;

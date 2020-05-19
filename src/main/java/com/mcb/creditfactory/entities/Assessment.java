@@ -1,4 +1,4 @@
-package com.mcb.creditfactory.model;
+package com.mcb.creditfactory.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

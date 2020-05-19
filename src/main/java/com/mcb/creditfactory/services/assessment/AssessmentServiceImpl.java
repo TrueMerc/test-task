@@ -1,4 +1,4 @@
-package com.mcb.creditfactory.service.assessment;
+package com.mcb.creditfactory.services.assessment;
 
 import com.mcb.creditfactory.dto.AssessmentDto;
 import com.mcb.creditfactory.entities.Assessment;

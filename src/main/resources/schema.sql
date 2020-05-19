@@ -12,7 +12,7 @@ CREATE TABLE AIRPLANE (
     model             VARCHAR2(200),
     manufacturer      VARCHAR2(500),
     year_of_issue     YEAR,
-    fuelCapacity      INT,
+    fuel_capacity     INT,
     seats             INT
 );
 
@@ -37,7 +37,7 @@ CREATE TABLE CARS_ASSESSMENTS(
     ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
-CREATE TABLE  PLAINS_ASSESSMENTS(
+CREATE TABLE  AIRPLANES_ASSESSMENTS(
     airplane_id       BIGINT,
     assessment_id     BIGINT,
 

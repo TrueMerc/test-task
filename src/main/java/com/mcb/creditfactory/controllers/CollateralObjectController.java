@@ -1,7 +1,7 @@
-package com.mcb.creditfactory.controller;
+package com.mcb.creditfactory.controllers;
 
 import com.mcb.creditfactory.dto.Collateral;
-import com.mcb.creditfactory.service.MainCollateralService;
+import com.mcb.creditfactory.services.MainCollateralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;

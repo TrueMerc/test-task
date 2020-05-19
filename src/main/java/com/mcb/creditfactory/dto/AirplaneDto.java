@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,8 +21,7 @@ public class AirplaneDto implements Collateral {
     private Integer fuelCapacity;
     private Short year;
     private Short seats;
-    private BigDecimal value;
-    private LocalDate lastAssessmentDate;
+    private List<AssessmentDto> assessmentDtos;
 
     public AirplaneDto(Long id) {
         this.id = id;

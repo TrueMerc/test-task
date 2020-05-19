@@ -1,9 +1,8 @@
-package com.mcb.creditfactory.service.car;
+package com.mcb.creditfactory.services.car;
 
 import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.dto.Collateral;
-import com.mcb.creditfactory.service.CollateralService;
-import com.mcb.creditfactory.service.TypedCollateralService;
+import com.mcb.creditfactory.services.TypedCollateralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
