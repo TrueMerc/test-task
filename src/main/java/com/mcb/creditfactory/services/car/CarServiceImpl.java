@@ -3,10 +3,8 @@ package com.mcb.creditfactory.services.car;
 import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.external.ExternalApproveService;
 import com.mcb.creditfactory.entities.Car;
-import com.mcb.creditfactory.repositories.AssessmentRepository;
 import com.mcb.creditfactory.repositories.CarRepository;
 import com.mcb.creditfactory.services.assessment.AssessmentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,14 +15,19 @@ import java.util.stream.Collectors;
  */
 @Service
 public class CarServiceImpl implements CarService {
-    @Autowired
-    private ExternalApproveService approveService;
+    private final ExternalApproveService approveService;
 
-    @Autowired
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
 
-    @Autowired
-    private AssessmentService assessmentService;
+    private final AssessmentService assessmentService;
+
+    public CarServiceImpl(
+            ExternalApproveService approveService, CarRepository carRepository, AssessmentService assessmentService
+    ) {
+        this.approveService = approveService;
+        this.carRepository = carRepository;
+        this.assessmentService = assessmentService;
+    }
 
     @Override
     public boolean approve(CarDto dto) {

@@ -24,9 +24,10 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CollateralServiceTests {
+
     @Autowired
     @Qualifier("mainCollateralService")
-    CollateralService collateralService;
+    private CollateralService collateralService;
 
     private final LocalDateTime now = LocalDateTime.now();
     private final Long firstEntityExpectedId = 1L;

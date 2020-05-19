@@ -17,10 +17,12 @@ import java.util.Map;
 @Qualifier("mainCollateralService")
 public class MainCollateralService implements CollateralService {
 
-    @Autowired
-    private ApplicationContext context;
-
+    private final ApplicationContext context;
     private final Map<String, TypedCollateralService> typedServices = new HashMap<>();
+
+    public MainCollateralService(ApplicationContext context) {
+        this.context = context;
+    }
 
     public Long saveCollateral(Collateral object) {
         final CollateralService service = getService(object);

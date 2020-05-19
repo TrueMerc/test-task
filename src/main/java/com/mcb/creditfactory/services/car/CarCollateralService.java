@@ -13,8 +13,11 @@ import java.util.Optional;
  */
 @Service
 public class CarCollateralService implements TypedCollateralService {
-    @Autowired
-    CarService carService;
+    private final CarService carService;
+
+    CarCollateralService(CarService carService) {
+        this.carService = carService;
+    }
 
     @Override
     public Long saveCollateral(Collateral object) {

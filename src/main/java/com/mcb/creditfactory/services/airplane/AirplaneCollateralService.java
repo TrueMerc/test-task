@@ -13,8 +13,12 @@ import java.util.Optional;
  */
 @Service
 public class AirplaneCollateralService implements TypedCollateralService {
-    @Autowired
-    AirplaneService airplaneService;
+
+    private final AirplaneService airplaneService;
+
+    public AirplaneCollateralService(AirplaneService airplaneService) {
+        this.airplaneService = airplaneService;
+    }
 
     @Override
     public Long saveCollateral(Collateral object) {

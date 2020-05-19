@@ -5,7 +5,6 @@ import com.mcb.creditfactory.external.ExternalApproveService;
 import com.mcb.creditfactory.entities.Airplane;
 import com.mcb.creditfactory.repositories.AirplaneRepository;
 import com.mcb.creditfactory.services.assessment.AssessmentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,14 +15,21 @@ import java.util.stream.Collectors;
  */
 @Service
 public class AirplaneServiceImpl implements AirplaneService {
-    @Autowired
-    private ExternalApproveService approveService;
+    private final ExternalApproveService approveService;
 
-    @Autowired
     private AirplaneRepository airplaneRepository;
 
-    @Autowired
     private AssessmentService assessmentService;
+
+    public AirplaneServiceImpl(
+            ExternalApproveService approveService,
+            AirplaneRepository airplaneRepository,
+            AssessmentService assessmentService
+    ) {
+      this.approveService = approveService;
+      this.airplaneRepository = airplaneRepository;
+      this.assessmentService = assessmentService;
+    }
 
     @Override
     public boolean approve(AirplaneDto dto) {
