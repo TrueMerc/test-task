@@ -10,25 +10,32 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonTypeName("car")
-public class CarDto implements Collateral {
+@JsonTypeName("airplane")
+public class AirplaneDto implements Collateral {
     private Long id;
     private String brand;
     private String model;
-    private Double power;
+    private String manufacturer;
+    private Integer fuelCapacity;
     private Short year;
+    private Short seats;
     private List<AssessmentDto> assessmentDtos;
 
-    public CarDto(Long id) {
+    public AirplaneDto(Long id) {
         this.id = id;
     }
 
-    public CarDto(String brand, String model, Double power, Short year, List<AssessmentDto> assessmentDtos) {
+    public AirplaneDto(
+            String brand, String model, String manufacturer, Integer fuelCapacity,
+            Short year, Short seats, List<AssessmentDto> assessmentDtos
+    ) {
         this.id = null;
         this.brand = brand;
         this.model = model;
-        this.power = power;
+        this.manufacturer = manufacturer;
+        this.fuelCapacity = fuelCapacity;
         this.year = year;
+        this.seats = seats;
         this.assessmentDtos = assessmentDtos;
     }
 }

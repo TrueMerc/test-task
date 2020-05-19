@@ -1,4 +1,4 @@
-package com.mcb.creditfactory.model;
+package com.mcb.creditfactory.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,23 +6,20 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "CAR")
-public class Car {
+@Table(name = "ASSESSMENT")
+public class Assessment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String brand;
-    private String model;
-    private Double power;
 
-    @Column(name = "year_of_issue")
-    private Short year;
+    @Column(name = "date_time")
+    private LocalDateTime dateTime;
 
-    @Column(name = "assessed_value")
-    private BigDecimal value;
+    BigDecimal value;
 }

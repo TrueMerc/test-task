@@ -1,4 +1,4 @@
-package com.mcb.creditfactory.service.car;
+package com.mcb.creditfactory.services.car;
 
 import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.external.CollateralObject;
@@ -8,13 +8,16 @@ import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * Provides car DTOs adapter for external approve service.
+ */
 @AllArgsConstructor
 public class CarAdapter implements CollateralObject {
-    private CarDto car;
+    private final CarDto car;
 
     @Override
     public BigDecimal getValue() {
-        return car.getValue();
+        return car.getAssessmentDtos().get(0).getValue();
     }
 
     @Override
@@ -24,8 +27,7 @@ public class CarAdapter implements CollateralObject {
 
     @Override
     public LocalDate getDate() {
-        // Для автомобилей дата оценки не используется, поэтому всегда берем текущую
-        return LocalDate.now();
+        return car.getAssessmentDtos().get(0).getDateTime().toLocalDate();
     }
 
     @Override

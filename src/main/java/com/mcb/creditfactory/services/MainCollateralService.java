@@ -1,0 +1,57 @@
+package com.mcb.creditfactory.services;
+
+import com.mcb.creditfactory.dto.Collateral;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Provides main service for collateral objects manipulations.
+ */
+@Service
+@Qualifier("mainCollateralService")
+public class MainCollateralService implements CollateralService {
+
+    private final ApplicationContext context;
+    private final Map<String, TypedCollateralService> typedServices = new HashMap<>();
+
+    public MainCollateralService(ApplicationContext context) {
+        this.context = context;
+    }
+
+    public Long saveCollateral(Collateral object) {
+        final CollateralService service = getService(object);
+        return service.saveCollateral(object);
+    }
+
+    public Collateral getInfo(Collateral object) {
+        final CollateralService service = getService(object);
+        return service.getInfo(object);
+    }
+
+    private CollateralService getService(Collateral object) {
+        final String id = object.getClass().toString();
+        return typedServices.get(id);
+    }
+
+    @PostConstruct
+    private void init() {
+        Map<String, TypedCollateralService> services = context.getBeansOfType(TypedCollateralService.class);
+
+        for(TypedCollateralService service: services.values()) {
+            final Class<?> serviceClass = service.getClass();
+            Service annotation = serviceClass.getAnnotation(Service.class);
+            if(annotation == null) {
+                throw new RuntimeException(
+                        "Can't add to services class without service annotation: " + serviceClass.toString()
+                );
+            }
+            typedServices.put(service.typeId(), service);
+        }
+    }
+}
