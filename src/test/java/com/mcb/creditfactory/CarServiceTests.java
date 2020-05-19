@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -40,7 +41,9 @@ public class CarServiceTests {
         Long id = carService.getId(car);
         Assert.assertEquals(1L, id.longValue());
 
-        Car loadedCar = carService.load(id).get();
+        Optional<Car> loaded = carService.load(id);
+        Assert.assertTrue(loaded.isPresent());
+        Car loadedCar = loaded.get();
 
         Assert.assertEquals(brand, loadedCar.getBrand());
         Assert.assertEquals(model, loadedCar.getModel());

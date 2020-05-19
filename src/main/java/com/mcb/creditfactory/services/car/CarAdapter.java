@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @AllArgsConstructor
 public class CarAdapter implements CollateralObject {
-    private CarDto car;
+    private final CarDto car;
 
     @Override
     public BigDecimal getValue() {

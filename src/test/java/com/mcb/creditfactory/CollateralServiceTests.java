@@ -5,6 +5,7 @@ import com.mcb.creditfactory.dto.AssessmentDto;
 import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.entities.Car;
 import com.mcb.creditfactory.services.CollateralService;
+import com.mcb.creditfactory.services.airplane.AirplaneAdapter;
 import com.mcb.creditfactory.services.car.CarAdapter;
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,25 +30,21 @@ public class CollateralServiceTests {
 
     private final LocalDateTime now = LocalDateTime.now();
     private final Long firstEntityExpectedId = 1L;
+    private final CarDto firstCarDto = new CarDto(firstEntityExpectedId);
+    private final AirplaneDto firstAirplaneDto = new AirplaneDto(firstEntityExpectedId);
     private final BigDecimal defaultCarAssessedValue = new BigDecimal(10000000);
 
     @Test
     public void saveAndLoadCarDto() {
         final CarDto carDto = getDefaultCarDto();
-
         Long id = collateralService.saveCollateral(carDto);
-
         Assert.assertEquals(firstEntityExpectedId, id);
 
-        CarDto loadedCarDto = (CarDto)collateralService.getInfo(new CarDto(id));
+        CarDto loadedCarDto = (CarDto)collateralService.getInfo(firstCarDto);
         this.assertEquals(carDto, loadedCarDto);
-
-        CarAdapter adapter = new CarAdapter(loadedCarDto);
-        Assert.assertEquals(LocalDate.now().plusMonths(1), adapter.getDate());
-        Assert.assertEquals(defaultCarAssessedValue, adapter.getValue());
     }
 
-    CarDto getDefaultCarDto() {
+    private CarDto getDefaultCarDto() {
         final String brand = "BMW";
         final String model = "X1";
         final Double power = 150.;
@@ -59,7 +56,7 @@ public class CollateralServiceTests {
         return new CarDto(brand, model, power, yearOfIssue, assessments);
     }
 
-    void assertEquals(CarDto expected, CarDto loaded) {
+    private void assertEquals(CarDto expected, CarDto loaded) {
         Assert.assertEquals(expected.getBrand(), loaded.getBrand());
         Assert.assertEquals(expected.getModel(), loaded.getModel());
         Assert.assertEquals(expected.getPower(), loaded.getPower());
@@ -71,7 +68,6 @@ public class CollateralServiceTests {
     public void addNewCarAssessment() {
         CarDto carDto = getDefaultCarDto();
         collateralService.saveCollateral(carDto);
-        final CarDto firstCarDto = new CarDto(firstEntityExpectedId);
         carDto = (CarDto)collateralService.getInfo(firstCarDto);
         carDto.getAssessmentDtos().add(new AssessmentDto(now.plusMonths(2), defaultCarAssessedValue));
         collateralService.saveCollateral(carDto);
@@ -81,6 +77,15 @@ public class CollateralServiceTests {
 
     @Test
     public void saveAndLoadAirplaneDto() {
+        final AirplaneDto airplaneDto = getDefaultAirplaneDto();
+        Long id = collateralService.saveCollateral(airplaneDto);
+        Assert.assertEquals(firstEntityExpectedId, id);
+
+        AirplaneDto loadedAirplaneDto = (AirplaneDto)collateralService.getInfo(firstAirplaneDto);
+        this.assertEquals(airplaneDto, loadedAirplaneDto);
+    }
+
+    private AirplaneDto getDefaultAirplaneDto() {
         final String brand = "Boeing";
         final String model = "737-800";
         final String manufacturer = "Boeing Company";
@@ -92,19 +97,12 @@ public class CollateralServiceTests {
         assessments.add(new AssessmentDto(now.plusMonths(1), accessedValue));
         assessments.add(new AssessmentDto(now.minusMonths(1), accessedValue));
         assessments.add(new AssessmentDto(now, accessedValue));
-        final AirplaneDto airplaneDto = new AirplaneDto(
+        return new AirplaneDto(
                 brand, model, manufacturer, fuelCapacity, yearOfIssue, seats, assessments
         );
-
-        Long id = collateralService.saveCollateral(airplaneDto);
-
-        Assert.assertEquals(firstEntityExpectedId, id);
-
-        AirplaneDto loadedAirplaneDto = (AirplaneDto)collateralService.getInfo(new AirplaneDto(id));
-        this.assertEquals(airplaneDto, loadedAirplaneDto);
     }
     
-    void assertEquals(AirplaneDto expected, AirplaneDto loaded) {
+    private void assertEquals(AirplaneDto expected, AirplaneDto loaded) {
         Assert.assertEquals(expected.getBrand(), loaded.getBrand());
         Assert.assertEquals(expected.getModel(), loaded.getModel());
         Assert.assertEquals(expected.getManufacturer(), loaded.getManufacturer());
@@ -112,5 +110,16 @@ public class CollateralServiceTests {
         Assert.assertEquals(expected.getYear(), loaded.getYear());
         Assert.assertEquals(expected.getSeats(), loaded.getSeats());
         Assert.assertEquals(expected.getAssessmentDtos().size(), loaded.getAssessmentDtos().size());
+    }
+
+    @Test
+    public void addNewAirplaneAssessment() {
+        AirplaneDto airplaneDto = getDefaultAirplaneDto();
+        collateralService.saveCollateral(airplaneDto);
+        airplaneDto = (AirplaneDto)collateralService.getInfo(firstAirplaneDto);
+        airplaneDto.getAssessmentDtos().add(new AssessmentDto(now.plusMonths(2), defaultCarAssessedValue));
+        collateralService.saveCollateral(airplaneDto);
+        airplaneDto = (AirplaneDto)collateralService.getInfo(firstAirplaneDto);
+        Assert.assertEquals(now.plusMonths(2).toLocalDate(), new AirplaneAdapter(airplaneDto).getDate());
     }
 }

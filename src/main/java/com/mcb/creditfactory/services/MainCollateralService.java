@@ -16,9 +16,9 @@ import java.util.Map;
 public class MainCollateralService implements CollateralService {
 
     @Autowired
-    ApplicationContext context;
+    private ApplicationContext context;
 
-    Map<String, TypedCollateralService> typedServices = new HashMap<>();
+    private final Map<String, TypedCollateralService> typedServices = new HashMap<>();
 
     public Long saveCollateral(Collateral object) {
         final CollateralService service = getService(object);
@@ -42,7 +42,7 @@ public class MainCollateralService implements CollateralService {
         for(TypedCollateralService service: services.values()) {
             final Class<?> serviceClass = service.getClass();
             Service annotation = serviceClass.getAnnotation(Service.class);
-            if(service == null) {
+            if(annotation == null) {
                 throw new RuntimeException(
                         "Can't add to services class without service annotation: " + serviceClass.toString()
                 );
