@@ -1,6 +1,5 @@
 package com.mcb.creditfactory;
 
-import com.mcb.creditfactory.dto.AssessmentDto;
 import com.mcb.creditfactory.entities.Assessment;
 import com.mcb.creditfactory.entities.Car;
 import com.mcb.creditfactory.services.car.CarService;

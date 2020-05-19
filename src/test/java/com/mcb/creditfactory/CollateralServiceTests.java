@@ -3,7 +3,6 @@ package com.mcb.creditfactory;
 import com.mcb.creditfactory.dto.AirplaneDto;
 import com.mcb.creditfactory.dto.AssessmentDto;
 import com.mcb.creditfactory.dto.CarDto;
-import com.mcb.creditfactory.entities.Car;
 import com.mcb.creditfactory.services.CollateralService;
 import com.mcb.creditfactory.services.airplane.AirplaneAdapter;
 import com.mcb.creditfactory.services.car.CarAdapter;
@@ -16,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
