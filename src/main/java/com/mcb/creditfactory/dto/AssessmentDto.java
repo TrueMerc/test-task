@@ -14,4 +14,10 @@ public class AssessmentDto {
     private Long id;
     private LocalDateTime dateTime;
     BigDecimal value;
+
+    public AssessmentDto(LocalDateTime dateTime, BigDecimal value) {
+        this.id = null;
+        this.dateTime = dateTime;
+        this.value = value;
+    }
 }

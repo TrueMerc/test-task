@@ -22,4 +22,13 @@ public class CarDto implements Collateral {
     public CarDto(Long id) {
         this.id = id;
     }
+
+    public CarDto(String brand, String model, Double power, Short year, List<AssessmentDto> assessmentDtos) {
+        this.id = null;
+        this.brand = brand;
+        this.model = model;
+        this.power = power;
+        this.year = year;
+        this.assessmentDtos = assessmentDtos;
+    }
 }

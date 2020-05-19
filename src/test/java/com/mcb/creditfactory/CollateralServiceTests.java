@@ -27,6 +27,9 @@ public class CollateralServiceTests {
     @Qualifier("mainCollateralService")
     CollateralService collateralService;
 
+    private final LocalDateTime now = LocalDateTime.now();
+    private final Long newEntityExpectedId = 1L;
+
     @Test
     public void saveAndLoadCarDto() {
         final String brand = "BMW";
@@ -35,26 +38,30 @@ public class CollateralServiceTests {
         final Short yearOfIssue = 2011;
         final BigDecimal accessedValue = new BigDecimal(10000000);
         final List<AssessmentDto> assessments = new ArrayList<>();
-        assessments.add(new AssessmentDto(null, LocalDateTime.now().plusMonths(1), accessedValue));
-        assessments.add(new AssessmentDto(null, LocalDateTime.now().minusMonths(1), accessedValue));
-        assessments.add(new AssessmentDto(null, LocalDateTime.now(), accessedValue));
-        final CarDto car = new CarDto(null, brand, model, power, yearOfIssue, assessments);
 
-        Long id = collateralService.saveCollateral(car);
+        assessments.add(new AssessmentDto(now.plusMonths(1), accessedValue));
+        assessments.add(new AssessmentDto(now.minusMonths(1), accessedValue));
+        assessments.add(new AssessmentDto(now, accessedValue));
+        final CarDto carDto = new CarDto(brand, model, power, yearOfIssue, assessments);
 
-        Assert.assertEquals(1L, id.longValue());
+        Long id = collateralService.saveCollateral(carDto);
+
+        Assert.assertEquals(newEntityExpectedId, id);
 
         CarDto loadedCarDto = (CarDto)collateralService.getInfo(new CarDto(id));
-
-        Assert.assertEquals(brand, loadedCarDto.getBrand());
-        Assert.assertEquals(model, loadedCarDto.getModel());
-        Assert.assertEquals(power, loadedCarDto.getPower());
-        Assert.assertEquals(yearOfIssue, loadedCarDto.getYear());
-        Assert.assertEquals(assessments.size(), loadedCarDto.getAssessmentDtos().size());
+        this.assertEquals(carDto, loadedCarDto);
 
         CarAdapter adapter = new CarAdapter(loadedCarDto);
         Assert.assertEquals(LocalDate.now().plusMonths(1), adapter.getDate());
         Assert.assertEquals(accessedValue, adapter.getValue());
+    }
+
+    void assertEquals(CarDto expected, CarDto loaded) {
+        Assert.assertEquals(expected.getBrand(), loaded.getBrand());
+        Assert.assertEquals(expected.getModel(), loaded.getModel());
+        Assert.assertEquals(expected.getPower(), loaded.getPower());
+        Assert.assertEquals(expected.getYear(), loaded.getYear());
+        Assert.assertEquals(expected.getAssessmentDtos().size(), loaded.getAssessmentDtos().size());
     }
 
     @Test
@@ -67,25 +74,28 @@ public class CollateralServiceTests {
         final Short seats = 175;
         final BigDecimal accessedValue = new BigDecimal(2500000000L);
         final List<AssessmentDto> assessments = new ArrayList<>();
-        assessments.add(new AssessmentDto(null, LocalDateTime.now().plusMonths(1), accessedValue));
-        assessments.add(new AssessmentDto(null, LocalDateTime.now().minusMonths(1), accessedValue));
-        assessments.add(new AssessmentDto(null, LocalDateTime.now(), accessedValue));
+        assessments.add(new AssessmentDto(now.plusMonths(1), accessedValue));
+        assessments.add(new AssessmentDto(now.minusMonths(1), accessedValue));
+        assessments.add(new AssessmentDto(now, accessedValue));
         final AirplaneDto airplaneDto = new AirplaneDto(
-                null, brand, model, manufacturer, fuelCapacity, yearOfIssue, seats, assessments
+                brand, model, manufacturer, fuelCapacity, yearOfIssue, seats, assessments
         );
 
         Long id = collateralService.saveCollateral(airplaneDto);
 
-        Assert.assertEquals(1L, id.longValue());
+        Assert.assertEquals(newEntityExpectedId, id);
 
         AirplaneDto loadedAirplaneDto = (AirplaneDto)collateralService.getInfo(new AirplaneDto(id));
-
-        Assert.assertEquals(brand, loadedAirplaneDto.getBrand());
-        Assert.assertEquals(model, loadedAirplaneDto.getModel());
-        Assert.assertEquals(manufacturer, loadedAirplaneDto.getManufacturer());
-        Assert.assertEquals(fuelCapacity, loadedAirplaneDto.getFuelCapacity());
-        Assert.assertEquals(yearOfIssue, loadedAirplaneDto.getYear());
-        Assert.assertEquals(yearOfIssue, loadedAirplaneDto.getYear());
-        Assert.assertEquals(assessments.size(), loadedAirplaneDto.getAssessmentDtos().size());
+        this.assertEquals(airplaneDto, loadedAirplaneDto);
+    }
+    
+    void assertEquals(AirplaneDto expected, AirplaneDto loaded) {
+        Assert.assertEquals(expected.getBrand(), loaded.getBrand());
+        Assert.assertEquals(expected.getModel(), loaded.getModel());
+        Assert.assertEquals(expected.getManufacturer(), loaded.getManufacturer());
+        Assert.assertEquals(expected.getFuelCapacity(), loaded.getFuelCapacity());
+        Assert.assertEquals(expected.getYear(), loaded.getYear());
+        Assert.assertEquals(expected.getSeats(), loaded.getSeats());
+        Assert.assertEquals(expected.getAssessmentDtos().size(), loaded.getAssessmentDtos().size());
     }
 }
