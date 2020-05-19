@@ -6,6 +6,7 @@ import com.mcb.creditfactory.dto.Collateral;
 import com.mcb.creditfactory.model.Assessment;
 import com.mcb.creditfactory.model.Car;
 import com.mcb.creditfactory.service.CollateralService;
+import com.mcb.creditfactory.service.car.CarAdapter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class CollateralServiceTests {
         final Short yearOfIssue = 2011;
         final BigDecimal accessedValue = new BigDecimal(10000000);
         final List<AssessmentDto> assessments = new ArrayList<>();
+        assessments.add(new AssessmentDto(null, LocalDateTime.now().plusMonths(1), accessedValue));
         assessments.add(new AssessmentDto(null, LocalDateTime.now().minusMonths(1), accessedValue));
         assessments.add(new AssessmentDto(null, LocalDateTime.now(), accessedValue));
         final CarDto car = new CarDto(null, brand, model, power, yearOfIssue, assessments);
@@ -48,6 +51,10 @@ public class CollateralServiceTests {
         Assert.assertEquals(model, loadedCarDto.getModel());
         Assert.assertEquals(power, loadedCarDto.getPower());
         Assert.assertEquals(yearOfIssue, loadedCarDto.getYear());
-        //Assert.assertEquals(accessedValue, loadedCarDto.getValue());
+        Assert.assertEquals(assessments.size(), loadedCarDto.getAssessmentDtos().size());
+
+        CarAdapter adapter = new CarAdapter(loadedCarDto);
+        Assert.assertEquals(LocalDate.now().plusMonths(1), adapter.getDate());
+        Assert.assertEquals(accessedValue, adapter.getValue());
     }
 }

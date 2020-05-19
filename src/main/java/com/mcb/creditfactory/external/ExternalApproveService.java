@@ -24,9 +24,14 @@ public class ExternalApproveService {
 
         int code;
         switch (object.getType()) {
-            case CAR: code = approveCar(object); break;
-            case AIRPLANE: code = approvePlane(object); break;
-            default: code = -100;
+            case CAR:
+                code = approveCar(object);
+                break;
+            case AIRPLANE:
+                code = approvePlane(object);
+                break;
+            default:
+                code = -100;
         }
 
         return code;

@@ -1,7 +1,7 @@
 package com.mcb.creditfactory.service.assessment;
 
 import com.mcb.creditfactory.dto.AssessmentDto;
-import com.mcb.creditfactory.model.Assessment;
+import com.mcb.creditfactory.entities.Assessment;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -2,7 +2,7 @@ package com.mcb.creditfactory.service.airplane;
 
 import com.mcb.creditfactory.external.CollateralObject;
 import com.mcb.creditfactory.external.CollateralType;
-import com.mcb.creditfactory.model.Airplane;
+import com.mcb.creditfactory.entities.Airplane;
 import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
