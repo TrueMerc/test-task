@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Provides collateral service implementation for car collateral objects.
+ */
 @Service
 public class CarCollateralService implements TypedCollateralService {
     @Autowired

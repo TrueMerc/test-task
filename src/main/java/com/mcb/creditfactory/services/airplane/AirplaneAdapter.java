@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * Provides airplane DTOs adapter for external approve service.
+ */
 @AllArgsConstructor
 public class AirplaneAdapter implements CollateralObject {
     private final AirplaneDto airplane;

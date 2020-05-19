@@ -10,7 +10,9 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: reimplement this
+/**
+ * Provides main service for collateral objects manipulations.
+ */
 @Service
 @Qualifier("mainCollateralService")
 public class MainCollateralService implements CollateralService {

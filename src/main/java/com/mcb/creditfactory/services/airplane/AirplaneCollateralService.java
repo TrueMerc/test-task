@@ -1,15 +1,16 @@
 package com.mcb.creditfactory.services.airplane;
 
 import com.mcb.creditfactory.dto.AirplaneDto;
-import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.dto.Collateral;
-import com.mcb.creditfactory.entities.Airplane;
 import com.mcb.creditfactory.services.TypedCollateralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Provides collateral service implementation for airplane collateral objects.
+ */
 @Service
 public class AirplaneCollateralService implements TypedCollateralService {
     @Autowired

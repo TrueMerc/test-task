@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Provides car service implementation.
+ */
 @Service
 public class CarServiceImpl implements CarService {
     @Autowired

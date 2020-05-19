@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * Provides car DTOs adapter for external approve service.
+ */
 @AllArgsConstructor
 public class CarAdapter implements CollateralObject {
     private final CarDto car;

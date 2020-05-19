@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Provides airplane service implementation.
+ */
 @Service
 public class AirplaneServiceImpl implements AirplaneService {
     @Autowired
